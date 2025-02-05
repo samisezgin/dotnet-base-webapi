@@ -1,4 +1,4 @@
-﻿using BookLibraryApi.Models;
+﻿using BookLibraryApi.DTOs;
 using BookLibraryApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,29 +9,29 @@ namespace BookLibraryApi.Controllers;
 public class BooksController(IBookService bookService) : ControllerBase
 {
     [HttpGet]
-    public IEnumerable<Book> GetBooks()
+    public ActionResult<IEnumerable<BookResultDto>> GetBooks()
     {
         return bookService.GetAllBooks();
     }
 
     [HttpGet("{id:long}")]
-    public ActionResult<Book> GetBook(long id)
+    public ActionResult<BookResultDto> GetBook(long id)
     {
         var book = bookService.GetBookById(id);
         return Ok(book);
     }
 
     [HttpPost]
-    public ActionResult<Book> CreateBook(Book book)
+    public ActionResult<BookResultDto> CreateBook(CreateBookDto requestDto)
     {
-        var bookEntity = bookService.CreateBook(book);
-        return CreatedAtAction(nameof(GetBook), new { id = bookEntity.Id }, bookEntity);
+        var bookResult = bookService.CreateBook(requestDto);
+        return CreatedAtAction(nameof(GetBook), new { id = bookResult.Id }, bookResult);
     }
 
     [HttpPut("{id:long}")]
-    public IActionResult UpdateBook(long id, Book book)
+    public IActionResult UpdateBook(long id, UpdateBookDto requestDto)
     {
-        bookService.UpdateBook(id, book);
+        bookService.UpdateBook(id, requestDto);
 
         return NoContent();
     }

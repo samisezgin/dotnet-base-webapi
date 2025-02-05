@@ -1,12 +1,12 @@
-﻿using BookLibraryApi.Models;
+﻿using BookLibraryApi.DTOs;
 
 namespace BookLibraryApi.Services.Interfaces;
 
 public interface IBookService
 {
-    public List<Book> GetAllBooks();
-    public Book GetBookById(long id);
-    public Book CreateBook(Book book);
-    public Book UpdateBook(long id, Book book);
+    public List<BookResultDto> GetAllBooks();
+    public BookResultDto GetBookById(long id);
+    public BookResultDto CreateBook(CreateBookDto book);
+    public void UpdateBook(long id, UpdateBookDto book);
     public void DeleteBook(long id);
 }

@@ -1,6 +1,6 @@
-﻿namespace BookLibraryApi.Models;
+﻿namespace BookLibraryApi.DTOs;
 
-public class Book
+public class BookResultDto
 {
     public long Id { get; set; }
     public string Title { get; set; }
